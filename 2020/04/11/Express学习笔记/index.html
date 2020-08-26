@@ -1,0 +1,263 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="虚怀若谷才能逆水行舟"><link rel="stylesheet" type="text/css" href="//fonts.loli.net/css?family=Source+Code+Pro"><link rel="stylesheet" type="text/css" href="/css/style.css?v=2.0.5"><link rel="stylesheet" type="text/css" href="/css/highlight.css?v=2.0.5"><link rel="Shortcut Icon" href="/favicon.ico"><link rel="bookmark" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><title>Express学习笔记 | CodeHare的博客</title><meta name="generator" content="Hexo 4.2.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Express学习笔记</h1><a id="logo" href="/.">CodeHare的博客</a><p class="description"> Stay Hungry , Stay Foolish </p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div><div id="search-form"><div id="result-mask" class="hide"></div><label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label><div id="result-wrap" class="hide"><div id="search-result"></div></div><div class="hide"><template id="search-tpl"><div class="item"><a href="/{path}" title="{title}"><div class="title">{title}</div><div class="time">{date}</div><div class="tags">{tags}</div></a></div></template></div></div></div><div id="layout" class="layout-g"><div class="layout-l"><div class="content_container"><div class="post"><h1 class="post-title">Express学习笔记</h1><div class="post-meta"><a href="/2020/04/11/Express%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#comments" class="comment-count"></a><p><span class="date">Apr 11, 2020</span><span><i id="busuanzi_container_page_pv"><i id="busuanzi_value_page_pv"></i><i>点击</i></i></span></p></div><div class="post-content"><p>[TOC]</p>
+<p>[TOC]</p>
+<blockquote>
+</blockquote>
+<h1 id="01-Express框架学习"><a href="#01-Express框架学习" class="headerlink" title="==01-Express框架学习=="></a>==01-Express框架学习==</h1><h2 id="1-1-Express框架介绍"><a href="#1-1-Express框架介绍" class="headerlink" title="1.1-Express框架介绍"></a>1.1-Express框架介绍</h2><ul>
+<li>1.Express是NodeJS开发中一个非常重量级的第三方框架，它对于NodeJS服务端就相当于Jquery对于HTML客户端。<ul>
+<li><strong>如果连Express都不会用，基本上都不好意思跟别人说你会NodeJS</strong></li>
+</ul>
+</li>
+<li>2.Express官网：<ul>
+<li><a href="http://www.expressjs.com.cn/" target="_blank" rel="noopener">http://www.expressjs.com.cn/</a></li>
+<li><a href="http://expressjs.com/" target="_blank" rel="noopener">http://expressjs.com/</a><ul>
+<li>一般我们学习一个新的技术，都是去官网文档查看它的API，然后多多尝试，熟能生巧</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>3.Express的github地址:<a href="https://github.com/expressjs/express" target="_blank" rel="noopener">https://github.com/expressjs/express</a><ul>
+<li>Express的原作者TJ在node社区非常的有名，他写过200多个框架，目前他已经将Express交给了朋友维护，宣布不再维护NodeJS框架，转向Go语言<a href="https://github.com/tj" target="_blank" rel="noopener">https://github.com/tj</a></li>
+</ul>
+</li>
+<li>4.Express官网是这样介绍自己的:基于 Node.js 平台，快速、开放、极简的 web 开发框架。<ul>
+<li><em>Express一个非常重要的亮点就是它没有改变nodejs已有的特性，而是在它的基础上进行了拓展</em><ul>
+<li><strong>也就是说，使用Express你既可以使用nodejs原生的任何API，也能使用Express的API</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><code>5.Express三大核心功能</code><ul>
+<li>1.托管静态资源<ul>
+<li>第二天讲的nodejs实现静态服务器功能在express中只需要一行代码</li>
+</ul>
+</li>
+<li>2.路由<ul>
+<li>express自带路由功能,让Node服务端开发变得极其简单</li>
+<li>express支持链式语法，可以让代码看起来更加简洁</li>
+</ul>
+</li>
+<li>==3.中间件==<ul>
+<li>Express最为核心的技术和思想，万物皆中间件<ul>
+<li>中间件虽然理解起来有点困难，但是使用起来非常方便，类似于<code>jquery的插件</code>一样，由于jquery库自身的功能无法满足开发需求，所以通过插件来拓展功能</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2020/04/11/Express%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Users/86187/Desktop/day03.assets/1571668969095.png" alt="1571668969095"></p>
+<h2 id="1-2-Express基本使用"><a href="#1-2-Express基本使用" class="headerlink" title="1.2-Express基本使用"></a>1.2-Express基本使用</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.导入模块</span></span><br><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//2.创建服务器</span></span><br><span class="line"><span class="comment">/* express() 相当于http模块的http.createServer() */</span></span><br><span class="line"><span class="keyword">let</span> app = express();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//3.接收客户端请求</span></span><br><span class="line"><span class="comment">/*（1）express最大的特点就是自带路由功能，我们无需在一个方法中处理所有请求</span></span><br><span class="line"><span class="comment">		* 路由：一个请求路径对应一个方法(函数)</span></span><br><span class="line"><span class="comment">   (2)在express中，每一个请求都是一个单独的方法</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/'</span>,(req,res)=&gt;&#123;</span><br><span class="line">    <span class="comment">//响应客户端数据</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//express响应数据 send方法:自动帮我们设置好了响应头,无需担心中文乱码问题</span></span><br><span class="line">    res.send(<span class="string">'欢迎来到黑马程序员'</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// //以前的做法；如果是中文，需要设置响应头解决乱码问题</span></span><br><span class="line">    <span class="comment">// res.writeHead(200,&#123;</span></span><br><span class="line">    <span class="comment">//     'Content-Type':'text/plain;charset=utf8'</span></span><br><span class="line">    <span class="comment">// &#125;);</span></span><br><span class="line">    <span class="comment">// res.end('欢迎来到黑马程序员');</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/heroInfo'</span>,(req,res)=&gt;&#123;</span><br><span class="line">    <span class="comment">//express自动帮我们解析了get请求参数，我们直接通过req.query获取即可</span></span><br><span class="line">    <span class="built_in">console</span>.log(req.query);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//4.开启服务器</span></span><br><span class="line">app.listen(<span class="number">3000</span>,()=&gt;&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'服务器启动成功'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="1-3-Express响应客户端数据"><a href="#1-3-Express响应客户端数据" class="headerlink" title="1.3-Express响应客户端数据"></a>1.3-Express响应客户端数据</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.导入模块</span></span><br><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//2.创建服务器</span></span><br><span class="line"><span class="comment">/* express() 相当于http模块的http.createServer() */</span></span><br><span class="line"><span class="keyword">let</span> app = express();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//3.接收客户端请求</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//文本类型数据</span></span><br><span class="line">app.get(<span class="string">'/'</span>,(req,res)=&gt;&#123;</span><br><span class="line">    <span class="comment">//响应客户端数据</span></span><br><span class="line">    res.send(<span class="string">'欢迎来到黑马程序员'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//json格式数据</span></span><br><span class="line">app.get(<span class="string">'/info'</span>,(req,res)=&gt;&#123;</span><br><span class="line">    <span class="comment">//响应json : express自动帮我们转换</span></span><br><span class="line">    res.send(&#123;<span class="attr">name</span>:<span class="string">'张三'</span>&#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 以前的做法</span></span><br><span class="line"><span class="comment">    使用JSON.stringify() : 将js对象转成json字符串</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="comment">//res.end(JSON.stringify(&#123;name:'张三'&#125;));</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//文件类型数据</span></span><br><span class="line">app.get(<span class="string">'/login'</span>,(req,res)=&gt;&#123;</span><br><span class="line">    <span class="comment">//express自动帮我们解析了get请求参数，我们直接通过req.query获取即可</span></span><br><span class="line">    <span class="built_in">console</span>.log(req.query);</span><br><span class="line">    res.sendFile(__dirname + <span class="string">'/login.html'</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//4.开启服务器</span></span><br><span class="line">app.listen(<span class="number">3000</span>,()=&gt;&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'服务器启动成功'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="1-4-Express托管静态资源"><a href="#1-4-Express托管静态资源" class="headerlink" title="1.4-Express托管静态资源"></a>1.4-Express托管静态资源</h2><ul>
+<li><strong><em>将第二天的nodejs实现静态服务器功能用Express实现</em></strong></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.导入模块</span></span><br><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//2.创建服务器</span></span><br><span class="line"><span class="keyword">let</span> app = express();</span><br><span class="line"></span><br><span class="line"><span class="comment">//托管静态资源（相当于我们之前写的一大坨模拟apache服务器功能代码）</span></span><br><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment">1.当请求路径为/时，express会自动读取www文件夹中的index.html文件响应返回</span></span><br><span class="line"><span class="comment">2.当路径请求为www文件夹中的静态资源，express会自动拼接文件路径并响应返回</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">app.use(express.static(<span class="string">'www'</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">//4.开启服务器</span></span><br><span class="line">app.listen(<span class="number">3000</span>,()=&gt;&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'success'</span>);  </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-5-第三方中间件使用"><a href="#1-5-第三方中间件使用" class="headerlink" title="==1.5-第三方中间件使用=="></a>==1.5-第三方中间件使用==</h2><ul>
+<li>1.在Express官网，有非常多得第三方中间件，它们可以让我们的Nodejs开发变得极其简单<ul>
+<li><code>中间件类似于jquery的插件，使用后就会给express中的req或者res添加成员</code></li>
+<li>jqeury插件的原理：给jquery的原型添加成员</li>
+</ul>
+</li>
+<li>2.所有的第三方框架学习套路都是一样的<ul>
+<li>1.进官网，查文档</li>
+<li>2.CTRL+C 与 CTRL+V</li>
+</ul>
+</li>
+<li>3.第三方中间件使用步骤一般都是固定两步<ul>
+<li>一： 安装 <code>npm i xxxx</code>（官网复制粘贴）<ul>
+<li><strong>第三方中间件都需要使用npm安装，可以理解为是一种特殊的第三方模块</strong></li>
+</ul>
+</li>
+<li>二:   使用 <code>app.use(xxx)</code>（官网复制粘贴）</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2020/04/11/Express%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Users/86187/Desktop/day03.assets/1571669641884.png" alt="1571669641884"></p>
+<ul>
+<li>body-parse第三方中间件：解析post请求参数<ul>
+<li>安装body-parser : <code>npm install body-parser</code></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//导入模块</span></span><br><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="comment">//创建服务器</span></span><br><span class="line"><span class="keyword">let</span> app = express();</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用第三方中间件</span></span><br><span class="line"><span class="comment">/*所有的第三方模块思路都是一样 </span></span><br><span class="line"><span class="comment">    1.进官网，查文档</span></span><br><span class="line"><span class="comment">    2.找examples（使用示例），复制粘贴</span></span><br><span class="line"><span class="comment">        a.安装第三方模块：`npm i body-parser`</span></span><br><span class="line"><span class="comment">        b.使用中间件: arr.use(具体用法请复制粘贴) </span></span><br><span class="line"><span class="comment">使用body-parser中间件之后，你的req会增加一个body属性，就是你的post请求参数</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="comment">//（1）导入模块</span></span><br><span class="line"><span class="keyword">var</span> bodyParser = <span class="built_in">require</span>(<span class="string">'body-parser'</span>);<span class="comment">//导入模块</span></span><br><span class="line"><span class="comment">// parse application/x-www-form-urlencoded </span></span><br><span class="line"><span class="comment">//（2）使用中间件</span></span><br><span class="line">app.use(bodyParser.urlencoded(&#123; <span class="attr">extended</span>: <span class="literal">false</span> &#125;))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app.post(<span class="string">'/abc'</span>,(req,res,next)=&gt;&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(req.body);</span><br><span class="line">    <span class="comment">//告诉客户端我收到的参数</span></span><br><span class="line">    res.send(req.body);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.post(<span class="string">'/efg'</span>,(req,res,next)=&gt;&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(req.body);</span><br><span class="line">    <span class="comment">//告诉客户端我收到的参数</span></span><br><span class="line">    res.send(req.body);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//开启服务器</span></span><br><span class="line">app.listen(<span class="number">3000</span>, () =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'success'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="02-Express项目实战-heroAdmin后台管理系统"><a href="#02-Express项目实战-heroAdmin后台管理系统" class="headerlink" title="02-Express项目实战-heroAdmin后台管理系统"></a>02-Express项目实战-heroAdmin后台管理系统</h1><h2 id="1-1-项目介绍"><a href="#1-1-项目介绍" class="headerlink" title="1.1-项目介绍"></a>1.1-项目介绍</h2><ul>
+<li>1.了解Express搭建服务端项目的流程<ul>
+<li>a.导入express</li>
+<li>b.创建服务器</li>
+<li>c.配置中间件</li>
+<li>d.路由</li>
+<li>e.开启服务器</li>
+</ul>
+</li>
+<li>2.了解服务端路由处理流程（路由：其实就是前端的接口文档）<ul>
+<li>请求 ： 获取客户端发送过来的参数</li>
+<li>处理： 增删改查数据库</li>
+<li>响应 ：将数据库的操作结果返回给客户端</li>
+</ul>
+</li>
+<li>3.了解服务端接收文件的流程<ul>
+<li>中间件 <code>express-fileupload</code>的使用</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>在ajax最后一天，我们通过综合案例hero_admin了解了前端ajax增删改查的业务逻辑<ul>
+<li><code>在nodejs阶段，我们通过实现hero_admin案例的后台，了解服务端增删改查的业务逻辑</code><ul>
+<li>PS：相当于使用nodejs实现ajax阶段课堂案例的后台</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2020/04/11/Express%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Users/86187/Desktop/day03.assets/1571855172034.png" alt="1571855172034"></p>
+<h2 id="1-2-项目准备工作"><a href="#1-2-项目准备工作" class="headerlink" title="1.2-项目准备工作"></a>1.2-项目准备工作</h2><ul>
+<li>1.将ajax最后一天案例hero_admin,写好的前端代码复制粘贴到<code>www</code>文件夹中<ul>
+<li>作用：托管静态资源</li>
+</ul>
+</li>
+<li>2.将今天课程资料中的 <code>model</code>文件夹 与 <code>static</code>文件夹复制粘贴到项目中<ul>
+<li>model :数据库文件（本阶段先了解后台的工作流程，数据库使用提前写好的）</li>
+<li>static : 用于存储用户上传的图片</li>
+</ul>
+</li>
+<li>3.安装本项目需要使用的第三方模块<ul>
+<li>a. 初始化npm : <code>npm init -y</code></li>
+<li>b.安装express与body-parser : <code>npm i express body-parser</code><ul>
+<li>i : install简写</li>
+<li>express body-parser：npm支持一次性安装多个模块，模块之间使用空格隔开即可</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2020/04/11/Express%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Users/86187/Desktop/day03.assets/1571855577159.png" alt="1571855577159"></p>
+<table>
+<thead>
+<tr>
+<th>服务器说明</th>
+<th>作用描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a href="http://127.0.0.1:4399" target="_blank" rel="noopener">http://127.0.0.1:4399</a></td>
+<td>服务器基地址</td>
+</tr>
+<tr>
+<td>200</td>
+<td>请求成功 状态码</td>
+</tr>
+<tr>
+<td>201</td>
+<td>新增成功</td>
+</tr>
+<tr>
+<td>202</td>
+<td>编辑成功</td>
+</tr>
+<tr>
+<td>204</td>
+<td>删除成功</td>
+</tr>
+<tr>
+<td>500</td>
+<td>服务器内部错误</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>接口名称</th>
+<th>URL</th>
+<th>请求方式</th>
+<th>请求参数</th>
+<th>返回值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>查询英雄列表</td>
+<td>/hero/all</td>
+<td>get</td>
+<td>无</td>
+<td>[data:{英雄列表}]</td>
+</tr>
+<tr>
+<td>删除英雄</td>
+<td>/hero/delete</td>
+<td>get</td>
+<td>id</td>
+<td>{code:204}</td>
+</tr>
+<tr>
+<td>新增英雄</td>
+<td>/hero/add</td>
+<td>post</td>
+<td>name , skill , icon</td>
+<td>{code:201}</td>
+</tr>
+<tr>
+<td>查询英雄</td>
+<td>/hero/id</td>
+<td>get</td>
+<td>id</td>
+<td>{data:{英雄详情}}</td>
+</tr>
+<tr>
+<td>编辑英雄</td>
+<td>/hero/update</td>
+<td>post</td>
+<td>name , skill , icon，id</td>
+<td>{code:202}</td>
+</tr>
+</tbody></table>
+<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.导入模块</span></span><br><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="comment">//2.创建服务器</span></span><br><span class="line"><span class="keyword">let</span> app = express();</span><br><span class="line"><span class="comment">//3.配置中间件</span></span><br><span class="line"><span class="comment">//3.1 托管静态资源</span></span><br><span class="line">app.use(express.static(<span class="string">'www'</span>));</span><br><span class="line">app.use(express.static(<span class="string">'static'</span>));</span><br><span class="line"><span class="comment">//3.2 body-parser:解析post请求参数</span></span><br><span class="line"><span class="comment">//导入模块</span></span><br><span class="line"><span class="keyword">const</span> bodyParser = <span class="built_in">require</span>(<span class="string">'body-parser'</span>);</span><br><span class="line"><span class="comment">//使用中间件</span></span><br><span class="line">app.use(bodyParser.urlencoded(&#123; <span class="attr">extended</span>: <span class="literal">false</span> &#125;));</span><br><span class="line"><span class="comment">//3.3 数据库 ： 增删改查数据</span></span><br><span class="line"><span class="keyword">const</span> heroModel = <span class="built_in">require</span>(<span class="string">'./modal/heroModel.js'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//4.路由（前端人员的接口文档）</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//4.1 查询所有英雄：  /hero/all</span></span><br><span class="line">app.get(<span class="string">'/hero/all'</span>, (req, res) =&gt; &#123;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//4.2 删除英雄 ： /hero/delete</span></span><br><span class="line">app.get(<span class="string">'/hero/delete'</span>, (req, res) =&gt; &#123;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//4.3 新增英雄  /hero/add</span></span><br><span class="line">app.post(<span class="string">'/hero/add'</span>, (req, res) =&gt; &#123;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//4.4 查询英雄   /hero/id</span></span><br><span class="line">app.get(<span class="string">'/hero/id'</span>, (req, res) =&gt; &#123;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//4.5 编辑英雄   /hero/update</span></span><br><span class="line">app.post(<span class="string">'/hero/update'</span>, (req, res) =&gt; &#123;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//5.开启服务器</span></span><br><span class="line">app.listen(<span class="number">4399</span>, () =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'success'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="1-4-完成首页查询英雄列表"><a href="#1-4-完成首页查询英雄列表" class="headerlink" title="1.4-完成首页查询英雄列表"></a>1.4-完成首页查询英雄列表</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//4.1 查询所有英雄：  /hero/all</span></span><br><span class="line">app.get(<span class="string">'/hero/all'</span>, (req, res) =&gt; &#123;</span><br><span class="line">    <span class="comment">//处理：查询数据库所有数据返回</span></span><br><span class="line">    <span class="keyword">let</span> heros = heroModel.all();</span><br><span class="line">    <span class="built_in">console</span>.log(heros);</span><br><span class="line">    <span class="comment">//响应</span></span><br><span class="line">    res.send(&#123; <span class="attr">data</span>: heros &#125;);</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="1-5-完成首页删除英雄"><a href="#1-5-完成首页删除英雄" class="headerlink" title="1.5-完成首页删除英雄"></a>1.5-完成首页删除英雄</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//4.2 删除英雄 ： /hero/delete</span></span><br><span class="line">app.get(<span class="string">'/hero/delete'</span>, (req, res) =&gt; &#123;</span><br><span class="line">    <span class="comment">//请求 ： 获取参数id</span></span><br><span class="line">    <span class="keyword">let</span> id = req.query.id;</span><br><span class="line">    <span class="built_in">console</span>.log(req.query);</span><br><span class="line">    <span class="comment">//处理：删除数据库数据</span></span><br><span class="line">    <span class="keyword">let</span> success = heroModel.delete(&#123; id &#125;);</span><br><span class="line">    <span class="comment">//响应：成功：204 失败：500</span></span><br><span class="line">    <span class="keyword">if</span> (success) &#123;</span><br><span class="line">        res.send(&#123; <span class="attr">code</span>: <span class="number">204</span>, <span class="attr">msg</span>: <span class="string">'删除成功'</span> &#125;);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        res.send(&#123; <span class="attr">code</span>: <span class="number">500</span>, <span class="attr">msg</span>: <span class="string">'删除失败'</span> &#125;);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="1-6-完成新增英雄-难点：nodejs如何接收客户端formdata上传的文件"><a href="#1-6-完成新增英雄-难点：nodejs如何接收客户端formdata上传的文件" class="headerlink" title="==1.6-完成新增英雄 (难点：nodejs如何接收客户端formdata上传的文件)=="></a>==1.6-完成新增英雄 (难点：nodejs如何接收客户端formdata上传的文件)==</h2><ul>
+<li>1.formdata上传的文件，在nodejs中无法直接接收，需要接触第三方模块（第三方库）来处理</li>
+<li>2.express处理前端文件上传的中间件 ： <code>express-fileupload</code><ul>
+<li>express-fileupload官网地址:<a href="https://github.com/richardgirges/express-fileupload" target="_blank" rel="noopener">https://github.com/richardgirges/express-fileupload</a></li>
+</ul>
+</li>
+<li>3.express-fileupload中间件使用流程<ul>
+<li>(1)装包 ： <code>npm i xpress-fileupload</code></li>
+<li>(2)配置中间件：查阅官方文档 example<ul>
+<li>导包:<code>const* fileUpload = require(&#39;express-fileupload&#39;);</code></li>
+<li>使用中间件:<code>app.use(fileUpload());</code></li>
+</ul>
+</li>
+<li>(3)接收用户上传的文件</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2020/04/11/Express%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Users/86187/Desktop/day03.assets/1571856162388.png" alt="1571856162388"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//3.配置中间件</span></span><br><span class="line"><span class="comment">//3.1 托管静态资源</span></span><br><span class="line">app.use(express.static(<span class="string">'www'</span>));</span><br><span class="line">app.use(express.static(<span class="string">'static'</span>));</span><br><span class="line"><span class="comment">//3.2 body-parser</span></span><br><span class="line"><span class="comment">//导入模块</span></span><br><span class="line"><span class="keyword">const</span> bodyParser = <span class="built_in">require</span>(<span class="string">'body-parser'</span>);</span><br><span class="line"><span class="comment">//使用中间件</span></span><br><span class="line">app.use(bodyParser.urlencoded(&#123; <span class="attr">extended</span>: <span class="literal">false</span> &#125;));</span><br><span class="line"><span class="comment">//3.3 数据库</span></span><br><span class="line"><span class="keyword">const</span> heroModel = <span class="built_in">require</span>(<span class="string">'./modal/heroModel.js'</span>);</span><br><span class="line"><span class="comment">//3.4 文件上传</span></span><br><span class="line"><span class="comment">//使用该中间件之后，express中的req对象会添加一个files属性 用于接收客户端上传的文件</span></span><br><span class="line"><span class="keyword">const</span> fileUpload = <span class="built_in">require</span>(<span class="string">'express-fileupload'</span>);</span><br><span class="line">app.use(fileUpload());</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//4.3 新增英雄  /hero/add</span></span><br><span class="line">app.post(<span class="string">'/hero/add'</span>, (req, res) =&gt; &#123;</span><br><span class="line">    <span class="comment">//请求 ： 获取参数 文件 + 文本</span></span><br><span class="line">    <span class="built_in">console</span>.log(req.files);</span><br><span class="line">    <span class="built_in">console</span>.log(req.body);</span><br><span class="line">    <span class="keyword">let</span> icon = req.files.icon;</span><br><span class="line">    <span class="keyword">let</span> &#123; name, skill &#125; = req.body;</span><br><span class="line">    <span class="comment">//处理 ：文件存入static 文本存入数据库</span></span><br><span class="line">    icon.mv(__dirname + <span class="string">'/static/imgs/'</span> + icon.name, <span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (err)</span><br><span class="line">            <span class="keyword">return</span> res.status(<span class="number">500</span>).send(err);</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">//数据库存储的是文件的url路径</span></span><br><span class="line">    <span class="keyword">let</span> success = heroModel.save(&#123;</span><br><span class="line">        name,</span><br><span class="line">        skill,</span><br><span class="line">        icon: <span class="string">'/imgs/'</span> + icon.name</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">//响应：成功：201 失败：500</span></span><br><span class="line">    <span class="keyword">if</span> (success) &#123;</span><br><span class="line">        res.send(&#123; <span class="attr">code</span>: <span class="number">201</span>, <span class="attr">msg</span>: <span class="string">'新增成功'</span> &#125;);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        res.send(&#123; <span class="attr">code</span>: <span class="number">500</span>, <span class="attr">msg</span>: <span class="string">'新增失败'</span> &#125;);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-7-完成根据id查询英雄详情"><a href="#1-7-完成根据id查询英雄详情" class="headerlink" title="1.7-完成根据id查询英雄详情"></a>1.7-完成根据id查询英雄详情</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//4.4 查询英雄   /hero/id</span></span><br><span class="line">app.get(<span class="string">'/hero/id'</span>, (req, res) =&gt; &#123;</span><br><span class="line">    <span class="comment">//请求 ： 获取参数id</span></span><br><span class="line">    <span class="keyword">let</span> id = req.query.id;</span><br><span class="line">    <span class="comment">//处理 ： 查询数据库</span></span><br><span class="line">    <span class="keyword">let</span> hero = heroModel.id(&#123; id &#125;);</span><br><span class="line">    <span class="comment">//响应</span></span><br><span class="line">    res.send(&#123; <span class="attr">data</span>: hero &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="1-8-完成编辑英雄"><a href="#1-8-完成编辑英雄" class="headerlink" title="1.8-完成编辑英雄"></a>1.8-完成编辑英雄</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//4.5 编辑英雄   /hero/update</span></span><br><span class="line">app.post(<span class="string">'/hero/update'</span>, (req, res) =&gt; &#123;</span><br><span class="line">    <span class="comment">//请求 ： 获取参数 文件 + 文本</span></span><br><span class="line">    <span class="built_in">console</span>.log(req.files);</span><br><span class="line">    <span class="built_in">console</span>.log(req.body);</span><br><span class="line">    <span class="keyword">let</span> icon = req.files.icon;</span><br><span class="line">    <span class="keyword">let</span> &#123; name, skill,id &#125; = req.body;</span><br><span class="line">    <span class="comment">//处理 ：文件存入static 文本存入数据库</span></span><br><span class="line">    icon.mv(__dirname + <span class="string">'/static/imgs/'</span> + icon.name, <span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (err)</span><br><span class="line">            <span class="keyword">return</span> res.status(<span class="number">500</span>).send(err);</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">//数据库存储的是文件的url路径</span></span><br><span class="line">    <span class="keyword">let</span> success = heroModel.update(&#123;</span><br><span class="line">        name,</span><br><span class="line">        skill,</span><br><span class="line">        id,</span><br><span class="line">        icon: <span class="string">'/imgs/'</span> + icon.name</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">//响应：成功：202 失败：500</span></span><br><span class="line">    <span class="keyword">if</span> (success) &#123;</span><br><span class="line">        res.send(&#123; <span class="attr">code</span>: <span class="number">202</span>, <span class="attr">msg</span>: <span class="string">'编辑成功'</span> &#125;);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        res.send(&#123; <span class="attr">code</span>: <span class="number">500</span>, <span class="attr">msg</span>: <span class="string">'编辑失败'</span> &#125;);</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+</div><div class="post-copyright"><blockquote><p>原文作者: CodeHare</p><p>原文链接: <a href="https://baiqingru.github.io/2020/04/11/Express学习笔记/">https://baiqingru.github.io/2020/04/11/Express学习笔记/</a></p><p>版权声明: 转载请注明出处(必须保留作者署名及链接)</p></blockquote></div><div class="tags"><a href="/tags/node-js/">node.js</a></div><div class="post-share"><div class="social-share"><span>分享到:</span></div></div><div class="post-nav"><a href="/2020/06/20/js%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E6%B7%B1%E5%85%A5/" class="pre">基础总结深入JavaScript</a><a href="/2020/04/11/mongodb%E5%AD%A6%E4%B9%A0/" class="next">数据库概述及 mongoDB 学习</a></div><div id="comments"></div></div></div></div><div class="layout-r"><div id="sidebar"><div class="search-pla"></div><div id="toc" class="widget"><div class="widget-title"><i class="fa fa-fei">文章目录</i></div><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#01-Express框架学习"><span class="toc-text">&#x3D;&#x3D;01-Express框架学习&#x3D;&#x3D;</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-Express框架介绍"><span class="toc-text">1.1-Express框架介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-Express基本使用"><span class="toc-text">1.2-Express基本使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-Express响应客户端数据"><span class="toc-text">1.3-Express响应客户端数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-Express托管静态资源"><span class="toc-text">1.4-Express托管静态资源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-5-第三方中间件使用"><span class="toc-text">&#x3D;&#x3D;1.5-第三方中间件使用&#x3D;&#x3D;</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#02-Express项目实战-heroAdmin后台管理系统"><span class="toc-text">02-Express项目实战-heroAdmin后台管理系统</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-项目介绍"><span class="toc-text">1.1-项目介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-项目准备工作"><span class="toc-text">1.2-项目准备工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#流程"><span class="toc-text">流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-完成首页查询英雄列表"><span class="toc-text">1.4-完成首页查询英雄列表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-5-完成首页删除英雄"><span class="toc-text">1.5-完成首页删除英雄</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-6-完成新增英雄-难点：nodejs如何接收客户端formdata上传的文件"><span class="toc-text">&#x3D;&#x3D;1.6-完成新增英雄 (难点：nodejs如何接收客户端formdata上传的文件)&#x3D;&#x3D;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-7-完成根据id查询英雄详情"><span class="toc-text">1.7-完成根据id查询英雄详情</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-8-完成编辑英雄"><span class="toc-text">1.8-完成编辑英雄</span></a></li></ol></li></ol></div><div class="widget"><div class="widget-title"><i class="fa fa-xie"> 最新文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/08/25/Promise%E5%8E%9F%E7%90%86/">Promise原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/10/Prettier/">Prettier</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/10/Fastclick%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/">Fastclick的简单使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/04/Eslint%E9%85%8D%E7%BD%AE/">Eslint配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/07/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E9%93%BE%E8%A1%A8/">数据结构与算法之链表</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/07/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E9%98%9F%E5%88%97/">数据结构与算法之队列</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/07/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E6%A0%88/">数据结构与算法之栈</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/07/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E6%95%B0%E7%BB%84/">数据结构与算法之数组</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/06/26/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/">线程机制与事件机制</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/06/25/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A6%82%E8%BF%B0%E5%8F%8A%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E5%AD%A6%E4%B9%A0/">数据库概述及环境搭建学习</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-biao"> 标签</i></div><div class="tagcloud"><a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/JavaScript/" style="font-size: 15px;">JavaScript</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3/" style="font-size: 15px;">数据库简单了解</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 15px;">数据结构与算法</a> <a href="/tags/%E5%85%B6%E4%BD%99/" style="font-size: 15px;">其余</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3/" style="font-size: 15px;">数据库的简单了解</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" style="font-size: 15px;">配置文件</a> <a href="/tags/ES6/" style="font-size: 15px;">ES6</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-archive"> 归档</i></div><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">23</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-you"> 友情链接</i></div><ul></ul><a href="http://www.example1.com/" title="site-name1" target="_blank">site-name1</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div></div><a id="totop" href="#top"></a><div id="footer"><div class="footer-info"><p><a href="/baidusitemap.xml">网站地图</a> |  <a href="/atom.xml">订阅本站</a> |  <a href="/about/">联系博主</a></p><p>本站总访问量：<i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>次，本站总访客数:<i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>人</p><p><span> Copyright &copy;<a href="/." rel="nofollow">CodeHare.</a></span><span> Theme by<a rel="nofollow" target="_blank" href="https://github.com/chaooo/hexo-theme-BlueLake"> BlueLake.</a></span><span> Count by<a href="http://busuanzi.ibruce.info/" target="_blank" rel="noopener"> busuanzi.</a></span><span> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a></span></p></div></div></div><script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><script type="text/javascript" src="/js/search.json.js?v=2.0.5"></script><div id="fullscreen-img" class="hide"><span class="close"></span></div><script type="text/javascript" src="/js/imgview.js?v=2.0.5" async></script><script type="text/javascript" src="/js/toctotop.js?v=2.0.5" async></script><link rel="stylesheet" type="text/css" href="/share/css/share.css"><script type="text/javascript" src="/share/js/social-share.js" charset="utf-8"></script><script type="text/javascript" src="/share/js/qrcode.js" charset="utf-8"></script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>

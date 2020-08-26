@@ -1,0 +1,190 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="虚怀若谷才能逆水行舟"><link rel="stylesheet" type="text/css" href="//fonts.loli.net/css?family=Source+Code+Pro"><link rel="stylesheet" type="text/css" href="/css/style.css?v=2.0.5"><link rel="stylesheet" type="text/css" href="/css/highlight.css?v=2.0.5"><link rel="Shortcut Icon" href="/favicon.ico"><link rel="bookmark" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><title>对象高级之创建模式 | CodeHare的博客</title><meta name="generator" content="Hexo 4.2.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">对象高级之创建模式</h1><a id="logo" href="/.">CodeHare的博客</a><p class="description"> Stay Hungry , Stay Foolish </p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div><div id="search-form"><div id="result-mask" class="hide"></div><label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label><div id="result-wrap" class="hide"><div id="search-result"></div></div><div class="hide"><template id="search-tpl"><div class="item"><a href="/{path}" title="{title}"><div class="title">{title}</div><div class="time">{date}</div><div class="tags">{tags}</div></a></div></template></div></div></div><div id="layout" class="layout-g"><div class="layout-l"><div class="content_container"><div class="post"><h1 class="post-title">对象高级之创建模式</h1><div class="post-meta"><a href="/2020/06/24/%E5%AF%B9%E8%B1%A1%E9%AB%98%E7%BA%A7%E4%B9%8B%E5%88%9B%E5%BB%BA%E6%A8%A1%E5%BC%8F/#comments" class="comment-count"></a><p><span class="date">Jun 24, 2020</span><span><i id="busuanzi_container_page_pv"><i id="busuanzi_value_page_pv"></i><i>点击</i></i></span></p></div><div class="post-content"><blockquote>
+</blockquote>
+<h1 id="对象高级之创建模式"><a href="#对象高级之创建模式" class="headerlink" title="对象高级之创建模式"></a>对象高级之创建模式</h1><h2 id="1-对象创建模式"><a href="#1-对象创建模式" class="headerlink" title="1.对象创建模式"></a>1.对象创建模式</h2><h3 id="1-1-Object构造函数模式"><a href="#1-1-Object构造函数模式" class="headerlink" title="1.1 Object构造函数模式"></a>1.1 Object构造函数模式</h3><ul>
+<li>how?<ul>
+<li>先创建空Object对象, 再动态添加属性/方法</li>
+</ul>
+</li>
+<li>适用场景<ul>
+<li>起始时不确定对象内部数据</li>
+</ul>
+</li>
+<li>缺陷<ul>
+<li>代码数量过多<ul>
+<li>如何解决?  ==&gt; 对象字面量模式</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type&#x3D;&quot;text&#x2F;javascript&quot;&gt;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 先创建空Object对象</span><br><span class="line">  var p &#x3D; new Object()</span><br><span class="line">  p &#x3D; &#123;&#125; &#x2F;&#x2F;此时内部数据是不确定的</span><br><span class="line">  &#x2F;&#x2F; 再动态添加属性&#x2F;方法</span><br><span class="line">  p.name &#x3D; &#39;Tom&#39;</span><br><span class="line">  p.age &#x3D; 12</span><br><span class="line">  p.setName &#x3D; function (name) &#123;</span><br><span class="line">    this.name &#x3D; name</span><br><span class="line">  &#125;</span><br><span class="line">  &#x2F;&#x2F;测试</span><br><span class="line">  console.log(p.name, p.age)</span><br><span class="line">  p.setName(&#39;Bob&#39;)</span><br><span class="line">  console.log(p.name, p.age)</span><br><span class="line">  </span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-2-对象字面量模式"><a href="#1-2-对象字面量模式" class="headerlink" title="1.2 对象字面量模式"></a>1.2 对象字面量模式</h3><ul>
+<li><p>how?</p>
+<ul>
+<li>使用{ }创建对象, 同时指定属性/方法</li>
+</ul>
+</li>
+<li><p>适用场景: </p>
+<ul>
+<li>起始时对象内部数据是确定的</li>
+</ul>
+</li>
+<li><p>缺陷</p>
+<ul>
+<li>若创建多个对象, 会出现重复代码<ul>
+<li>如何解决?    ==&gt; 工厂模式</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type&#x3D;&quot;text&#x2F;javascript&quot;&gt;</span><br><span class="line">  var p &#x3D; &#123;</span><br><span class="line">    name: &#39;Tom&#39;,</span><br><span class="line">    age: 12,</span><br><span class="line">    setName: function (name) &#123;</span><br><span class="line">      this.name &#x3D; name</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  console.log(p.name, p.age)</span><br><span class="line">  p.setName(&#39;JACK&#39;)</span><br><span class="line">  console.log(p.name, p.age)</span><br><span class="line"></span><br><span class="line">  var p2 &#x3D; &#123;  </span><br><span class="line">    name: &#39;Bob&#39;,</span><br><span class="line">    age: 13,</span><br><span class="line">    setName: function (name) &#123;</span><br><span class="line">      this.name &#x3D; name</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-3-工厂模式"><a href="#1-3-工厂模式" class="headerlink" title="1.3 工厂模式"></a>1.3 工厂模式</h3><ul>
+<li><p>what?</p>
+<ul>
+<li>通过工厂函数动态创建对象并返回<ul>
+<li><strong>工厂函数 : 返回一个对象的函数都可以成为工厂函数</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>适用场景:</p>
+<ul>
+<li>需要创建多个对象</li>
+</ul>
+</li>
+<li><p>缺陷</p>
+<ul>
+<li>对象没有一个具体的类型, 都是Object类型<ul>
+<li>若没有具体类型, 特性不显</li>
+<li>如何解决?<ul>
+<li>自定义构造函数模式</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type&#x3D;&quot;text&#x2F;javascript&quot;&gt;</span><br><span class="line">  &#x2F;&#x2F;工厂函数: 返回一个对象的函数   </span><br><span class="line">  function createPerson(name, age) &#123; </span><br><span class="line">    var obj &#x3D; &#123;</span><br><span class="line">      name: name,</span><br><span class="line">      age: age,</span><br><span class="line">      setName: function (name) &#123;</span><br><span class="line">        this.name &#x3D; name</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return obj</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; 创建2个人</span><br><span class="line">  var p1 &#x3D; createPerson(&#39;Tom&#39;, 12)</span><br><span class="line">  var p2 &#x3D; createPerson(&#39;Bob&#39;, 13)</span><br><span class="line"></span><br><span class="line">  &#x2F;&#x2F; p1&#x2F;p2 Object类型</span><br><span class="line"></span><br><span class="line">  function createStudent(name, price) &#123;</span><br><span class="line">    var obj &#x3D; &#123;</span><br><span class="line">      name: name,</span><br><span class="line">      price: price</span><br><span class="line">    &#125;</span><br><span class="line">    return obj</span><br><span class="line">  &#125;</span><br><span class="line">  var s &#x3D; createStudent(&#39;张三&#39;, 12000)</span><br><span class="line">  &#x2F;&#x2F; s Object类型  特性不容易看到</span><br><span class="line">  </span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-4-自定义构造函数"><a href="#1-4-自定义构造函数" class="headerlink" title="1.4 自定义构造函数"></a>1.4 自定义构造函数</h3><ul>
+<li><p>what?</p>
+<ul>
+<li>自定义构造函数, 通过new创建对象</li>
+</ul>
+</li>
+<li><p>适用场景</p>
+<ul>
+<li>需创建多个类型确定的对象</li>
+</ul>
+</li>
+<li><p>缺陷</p>
+<ul>
+<li>每个对象都有相同的数据, 浪费内存</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type&#x3D;&quot;text&#x2F;javascript&quot;&gt;</span><br><span class="line">  &#x2F;&#x2F;定义类型</span><br><span class="line">  function Person(name, age) &#123;</span><br><span class="line">    this.name &#x3D; name</span><br><span class="line">    this.age &#x3D; age</span><br><span class="line">    this.setName &#x3D; function (name) &#123;</span><br><span class="line">      this.name &#x3D; name</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  var p1 &#x3D; new Person(&#39;Tom&#39;, 12)</span><br><span class="line">  p1.setName(&#39;Jack&#39;)</span><br><span class="line">  console.log(p1.name, p1.age)</span><br><span class="line">  console.log(p1 instanceof Person)</span><br><span class="line"></span><br><span class="line">  function Student(name, price) &#123;</span><br><span class="line">    this.name &#x3D; name</span><br><span class="line">    this.price &#x3D; price</span><br><span class="line">  &#125;</span><br><span class="line">  var s &#x3D; new Student(&#39;Bob&#39;, 13000)</span><br><span class="line">  console.log(s instanceof Student)</span><br><span class="line"></span><br><span class="line">  var p2 &#x3D; new Person(&#39;JACK&#39;, 23)</span><br><span class="line">  console.log(p1, p2)</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20200625144421942.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0JhaXFpbmdydQ==,size_16,color_FFFFFF,t_70#pic_center" alt></p>
+<h3 id="1-5-构造函数-原型的组合模式"><a href="#1-5-构造函数-原型的组合模式" class="headerlink" title="1.5 构造函数 + 原型的组合模式"></a>1.5 构造函数 + 原型的组合模式</h3><ul>
+<li>what?<ul>
+<li>在构造函数中值初始化一般函数</li>
+<li>方法添加到原型上</li>
+</ul>
+</li>
+<li>适用场景<ul>
+<li>需要创建多个类型确定的对象</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type&#x3D;&quot;text&#x2F;javascript&quot;&gt;</span><br><span class="line"></span><br><span class="line">  function Person(name, age) &#123; </span><br><span class="line">    this.name &#x3D; name</span><br><span class="line">    this.age &#x3D; age</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  Person.prototype.setName &#x3D; function (name) &#123;</span><br><span class="line">    this.name &#x3D; name</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  var p1 &#x3D; new Person(&#39;Tom&#39;, 23)</span><br><span class="line">  var p2 &#x3D; new Person(&#39;Jack&#39;, 24)</span><br><span class="line">  console.log(p1, p2)</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div><div class="post-copyright"><blockquote><p>原文作者: CodeHare</p><p>原文链接: <a href="https://baiqingru.github.io/2020/06/24/对象高级之创建模式/">https://baiqingru.github.io/2020/06/24/对象高级之创建模式/</a></p><p>版权声明: 转载请注明出处(必须保留作者署名及链接)</p></blockquote></div><div class="tags"><a href="/tags/JavaScript/">JavaScript</a></div><div class="post-share"><div class="social-share"><span>分享到:</span></div></div><div class="post-nav"><a href="/2020/06/25/%E5%AF%B9%E8%B1%A1%E9%AB%98%E7%BA%A7%E4%B9%8B%E7%BB%A7%E6%89%BF%E6%A8%A1%E5%BC%8F/" class="pre">对象高级之继承模式</a><a href="/2020/06/22/%E5%87%BD%E6%95%B0%E4%B9%8B%E9%97%AD%E5%8C%85/" class="next">函数之闭包</a></div><div id="comments"></div></div></div></div><div class="layout-r"><div id="sidebar"><div class="search-pla"></div><div id="toc" class="widget"><div class="widget-title"><i class="fa fa-fei">文章目录</i></div><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#对象高级之创建模式"><span class="toc-text">对象高级之创建模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-对象创建模式"><span class="toc-text">1.对象创建模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-Object构造函数模式"><span class="toc-text">1.1 Object构造函数模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-对象字面量模式"><span class="toc-text">1.2 对象字面量模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-工厂模式"><span class="toc-text">1.3 工厂模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-自定义构造函数"><span class="toc-text">1.4 自定义构造函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-构造函数-原型的组合模式"><span class="toc-text">1.5 构造函数 + 原型的组合模式</span></a></li></ol></li></ol></li></ol></div><div class="widget"><div class="widget-title"><i class="fa fa-xie"> 最新文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/08/25/Promise%E5%8E%9F%E7%90%86/">Promise原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/10/Prettier/">Prettier</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/10/Fastclick%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/">Fastclick的简单使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/04/Eslint%E9%85%8D%E7%BD%AE/">Eslint配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/07/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E9%93%BE%E8%A1%A8/">数据结构与算法之链表</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/07/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E9%98%9F%E5%88%97/">数据结构与算法之队列</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/07/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E6%A0%88/">数据结构与算法之栈</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/07/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E6%95%B0%E7%BB%84/">数据结构与算法之数组</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/06/26/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/">线程机制与事件机制</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/06/25/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A6%82%E8%BF%B0%E5%8F%8A%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E5%AD%A6%E4%B9%A0/">数据库概述及环境搭建学习</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-biao"> 标签</i></div><div class="tagcloud"><a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/JavaScript/" style="font-size: 15px;">JavaScript</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3/" style="font-size: 15px;">数据库简单了解</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 15px;">数据结构与算法</a> <a href="/tags/%E5%85%B6%E4%BD%99/" style="font-size: 15px;">其余</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3/" style="font-size: 15px;">数据库的简单了解</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" style="font-size: 15px;">配置文件</a> <a href="/tags/ES6/" style="font-size: 15px;">ES6</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-archive"> 归档</i></div><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">23</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-you"> 友情链接</i></div><ul></ul><a href="http://www.example1.com/" title="site-name1" target="_blank">site-name1</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div></div><a id="totop" href="#top"></a><div id="footer"><div class="footer-info"><p><a href="/baidusitemap.xml">网站地图</a> |  <a href="/atom.xml">订阅本站</a> |  <a href="/about/">联系博主</a></p><p>本站总访问量：<i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>次，本站总访客数:<i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>人</p><p><span> Copyright &copy;<a href="/." rel="nofollow">CodeHare.</a></span><span> Theme by<a rel="nofollow" target="_blank" href="https://github.com/chaooo/hexo-theme-BlueLake"> BlueLake.</a></span><span> Count by<a href="http://busuanzi.ibruce.info/" target="_blank" rel="noopener"> busuanzi.</a></span><span> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a></span></p></div></div></div><script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><script type="text/javascript" src="/js/search.json.js?v=2.0.5"></script><div id="fullscreen-img" class="hide"><span class="close"></span></div><script type="text/javascript" src="/js/imgview.js?v=2.0.5" async></script><script type="text/javascript" src="/js/toctotop.js?v=2.0.5" async></script><link rel="stylesheet" type="text/css" href="/share/css/share.css"><script type="text/javascript" src="/share/js/social-share.js" charset="utf-8"></script><script type="text/javascript" src="/share/js/qrcode.js" charset="utf-8"></script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>

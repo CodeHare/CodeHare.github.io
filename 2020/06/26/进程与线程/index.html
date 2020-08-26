@@ -1,0 +1,97 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="虚怀若谷才能逆水行舟"><link rel="stylesheet" type="text/css" href="//fonts.loli.net/css?family=Source+Code+Pro"><link rel="stylesheet" type="text/css" href="/css/style.css?v=2.0.5"><link rel="stylesheet" type="text/css" href="/css/highlight.css?v=2.0.5"><link rel="Shortcut Icon" href="/favicon.ico"><link rel="bookmark" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><title>线程机制与事件机制 | CodeHare的博客</title><meta name="generator" content="Hexo 4.2.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">线程机制与事件机制</h1><a id="logo" href="/.">CodeHare的博客</a><p class="description"> Stay Hungry , Stay Foolish </p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div><div id="search-form"><div id="result-mask" class="hide"></div><label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label><div id="result-wrap" class="hide"><div id="search-result"></div></div><div class="hide"><template id="search-tpl"><div class="item"><a href="/{path}" title="{title}"><div class="title">{title}</div><div class="time">{date}</div><div class="tags">{tags}</div></a></div></template></div></div></div><div id="layout" class="layout-g"><div class="layout-l"><div class="content_container"><div class="post"><h1 class="post-title">线程机制与事件机制</h1><div class="post-meta"><a href="/2020/06/26/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/#comments" class="comment-count"></a><p><span class="date">Jun 26, 2020</span><span><i id="busuanzi_container_page_pv"><i id="busuanzi_value_page_pv"></i><i>点击</i></i></span></p></div><div class="post-content"><blockquote>
+</blockquote>
+<h1 id="线程机制与事件机制"><a href="#线程机制与事件机制" class="headerlink" title="线程机制与事件机制"></a>线程机制与事件机制</h1><h2 id="1-线程与进程"><a href="#1-线程与进程" class="headerlink" title="1.  线程与进程"></a>1.  线程与进程</h2><ul>
+<li>进程:<ul>
+<li>程序的一次执行, 它占有一片独有的内存空间</li>
+<li>可以通过windows任务管理器查看进程</li>
+</ul>
+</li>
+<li>线程:<ul>
+<li>是进程内的一个独立执行单元</li>
+<li>是程序执行的一个完整流程</li>
+<li><strong>是CPU的最小的调度单元</strong></li>
+</ul>
+</li>
+<li>关系<ul>
+<li>一个进程至少有一个线程(主)</li>
+<li>程序是在某个进程中的某个线程执行的</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-浏览器内核模块组成"><a href="#2-浏览器内核模块组成" class="headerlink" title="2. 浏览器内核模块组成"></a>2. 浏览器内核模块组成</h2><ul>
+<li>主线程<ul>
+<li>js引擎模块 : 负责js程序的编译与运行</li>
+<li>html,css文档解析模块 : 负责页面文本的解析</li>
+<li>DOM/CSS模块 : 负责dom/css在内存中的相关处理 </li>
+<li>布局和渲染模块 : 负责页面的布局和效果的绘制(内存中的对象)</li>
+</ul>
+</li>
+<li>分线程 <strong>(分线程不能操作页面, 因为分线程看不到window)</strong><ul>
+<li>定时器模块 : 负责定时器的管理</li>
+<li>DOM事件模块 : 负责事件的管理</li>
+<li>网络请求模块 : 负责Ajax请求</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>浏览器是多线程,多进程的</p>
+</blockquote>
+<h2 id="3-js线程"><a href="#3-js线程" class="headerlink" title="3. js线程"></a>3. js线程</h2><ul>
+<li><strong>js是单线程执行的( 回调函数也是在主线程 )</strong></li>
+<li>H5提出了实现多线程的方案: Web Workers</li>
+<li><strong>H5依然只能是主线程更新界面,因为你分线程看不到window的!!!</strong></li>
+</ul>
+<h2 id="4-定时器问题"><a href="#4-定时器问题" class="headerlink" title="4. 定时器问题:"></a>4. 定时器问题:</h2><ul>
+<li>定时器并不真正完全定时</li>
+<li>如果在主线程执行了一个长时间的操作, 可能导致延时才处理</li>
+</ul>
+<h2 id="5-事件处理机制-图"><a href="#5-事件处理机制-图" class="headerlink" title="5. 事件处理机制(图)"></a>5. 事件处理机制(图)</h2><ul>
+<li>代码分类<ul>
+<li>初始化执行代码: 包含绑定dom事件监听, 设置定时器, 发送ajax请求的代码</li>
+<li>回调执行代码: 处理回调逻辑</li>
+</ul>
+</li>
+<li>js引擎执行代码的基本流程: <ul>
+<li>初始化代码===&gt;回调代码</li>
+</ul>
+</li>
+<li>模型的2个重要组成部分:<ul>
+<li>事件管理模块</li>
+<li>回调队列</li>
+</ul>
+</li>
+<li>模型的运转流程<ul>
+<li>执行初始化代码, 将事件回调函数交给对应模块管理</li>
+<li>当事件发生时, 管理模块会将回调函数及其数据添加到回调列队中</li>
+<li>只有当初始化代码执行完后(可能要一定时间), 才会遍历读取回调队列中的回调函数执行</li>
+</ul>
+</li>
+</ul>
+<h2 id="6-H5-Web-Workers"><a href="#6-H5-Web-Workers" class="headerlink" title="6. H5 Web Workers"></a>6. H5 Web Workers</h2><ul>
+<li><p>可以让js在分线程执行</p>
+</li>
+<li><p>Worker</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var worker &#x3D; new Worker(&#39;worker.js&#39;);</span><br><span class="line">worker.onMessage &#x3D; function(event)&#123;event.data&#125; : 用来接收另一个线程发送过来的数据的回调</span><br><span class="line">worker.postMessage(data1) : 向另一个线程发送数据</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>问题:</p>
+<ul>
+<li>worker内代码不能操作DOM更新UI</li>
+<li>不是每个浏览器都支持这个新特性</li>
+<li>不能跨域加载JS</li>
+</ul>
+</li>
+<li><p>svn版本控制</p>
+</li>
+<li><p>svn server</p>
+</li>
+</ul>
+<h2 id="7-思考"><a href="#7-思考" class="headerlink" title="7.思考"></a>7.思考</h2><ul>
+<li><p>异步任务挂起时, I/O请求是如何被CPU(<strong>CPU被操作系统control</strong>)处理的?</p>
+<blockquote>
+<p>提示:  I/O就是input/output请求; 网路请求是 get/post/Ajax其实就是远程操作的I/O</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="8-总结"><a href="#8-总结" class="headerlink" title="8.  总结"></a>8.  总结</h2><blockquote>
+</blockquote>
+</div><div class="post-copyright"><blockquote><p>原文作者: CodeHare</p><p>原文链接: <a href="https://baiqingru.github.io/2020/06/26/进程与线程/">https://baiqingru.github.io/2020/06/26/进程与线程/</a></p><p>版权声明: 转载请注明出处(必须保留作者署名及链接)</p></blockquote></div><div class="tags"><a href="/tags/JavaScript/">JavaScript</a></div><div class="post-share"><div class="social-share"><span>分享到:</span></div></div><div class="post-nav"><a href="/2020/07/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E6%95%B0%E7%BB%84/" class="pre">数据结构与算法之数组</a><a href="/2020/06/25/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A6%82%E8%BF%B0%E5%8F%8A%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E5%AD%A6%E4%B9%A0/" class="next">数据库概述及环境搭建学习</a></div><div id="comments"></div></div></div></div><div class="layout-r"><div id="sidebar"><div class="search-pla"></div><div id="toc" class="widget"><div class="widget-title"><i class="fa fa-fei">文章目录</i></div><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#线程机制与事件机制"><span class="toc-text">线程机制与事件机制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-线程与进程"><span class="toc-text">1.  线程与进程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-浏览器内核模块组成"><span class="toc-text">2. 浏览器内核模块组成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-js线程"><span class="toc-text">3. js线程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-定时器问题"><span class="toc-text">4. 定时器问题:</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-事件处理机制-图"><span class="toc-text">5. 事件处理机制(图)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-H5-Web-Workers"><span class="toc-text">6. H5 Web Workers</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-思考"><span class="toc-text">7.思考</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-总结"><span class="toc-text">8.  总结</span></a></li></ol></li></ol></div><div class="widget"><div class="widget-title"><i class="fa fa-xie"> 最新文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/08/25/Promise%E5%8E%9F%E7%90%86/">Promise原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/10/Prettier/">Prettier</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/10/Fastclick%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/">Fastclick的简单使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/04/Eslint%E9%85%8D%E7%BD%AE/">Eslint配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/07/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E9%93%BE%E8%A1%A8/">数据结构与算法之链表</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/07/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E9%98%9F%E5%88%97/">数据结构与算法之队列</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/07/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E6%A0%88/">数据结构与算法之栈</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/07/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E6%95%B0%E7%BB%84/">数据结构与算法之数组</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/06/26/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/">线程机制与事件机制</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/06/25/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A6%82%E8%BF%B0%E5%8F%8A%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E5%AD%A6%E4%B9%A0/">数据库概述及环境搭建学习</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-biao"> 标签</i></div><div class="tagcloud"><a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/JavaScript/" style="font-size: 15px;">JavaScript</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3/" style="font-size: 15px;">数据库简单了解</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 15px;">数据结构与算法</a> <a href="/tags/%E5%85%B6%E4%BD%99/" style="font-size: 15px;">其余</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3/" style="font-size: 15px;">数据库的简单了解</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" style="font-size: 15px;">配置文件</a> <a href="/tags/ES6/" style="font-size: 15px;">ES6</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-archive"> 归档</i></div><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">23</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-you"> 友情链接</i></div><ul></ul><a href="http://www.example1.com/" title="site-name1" target="_blank">site-name1</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div></div><a id="totop" href="#top"></a><div id="footer"><div class="footer-info"><p><a href="/baidusitemap.xml">网站地图</a> |  <a href="/atom.xml">订阅本站</a> |  <a href="/about/">联系博主</a></p><p>本站总访问量：<i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>次，本站总访客数:<i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>人</p><p><span> Copyright &copy;<a href="/." rel="nofollow">CodeHare.</a></span><span> Theme by<a rel="nofollow" target="_blank" href="https://github.com/chaooo/hexo-theme-BlueLake"> BlueLake.</a></span><span> Count by<a href="http://busuanzi.ibruce.info/" target="_blank" rel="noopener"> busuanzi.</a></span><span> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a></span></p></div></div></div><script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><script type="text/javascript" src="/js/search.json.js?v=2.0.5"></script><div id="fullscreen-img" class="hide"><span class="close"></span></div><script type="text/javascript" src="/js/imgview.js?v=2.0.5" async></script><script type="text/javascript" src="/js/toctotop.js?v=2.0.5" async></script><link rel="stylesheet" type="text/css" href="/share/css/share.css"><script type="text/javascript" src="/share/js/social-share.js" charset="utf-8"></script><script type="text/javascript" src="/share/js/qrcode.js" charset="utf-8"></script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>

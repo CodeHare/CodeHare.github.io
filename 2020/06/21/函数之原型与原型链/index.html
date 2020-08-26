@@ -1,0 +1,216 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description" content="虚怀若谷才能逆水行舟"><link rel="stylesheet" type="text/css" href="//fonts.loli.net/css?family=Source+Code+Pro"><link rel="stylesheet" type="text/css" href="/css/style.css?v=2.0.5"><link rel="stylesheet" type="text/css" href="/css/highlight.css?v=2.0.5"><link rel="Shortcut Icon" href="/favicon.ico"><link rel="bookmark" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><title>函数之原型与原型链 | CodeHare的博客</title><meta name="generator" content="Hexo 4.2.0"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">函数之原型与原型链</h1><a id="logo" href="/.">CodeHare的博客</a><p class="description"> Stay Hungry , Stay Foolish </p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div><div id="search-form"><div id="result-mask" class="hide"></div><label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label><div id="result-wrap" class="hide"><div id="search-result"></div></div><div class="hide"><template id="search-tpl"><div class="item"><a href="/{path}" title="{title}"><div class="title">{title}</div><div class="time">{date}</div><div class="tags">{tags}</div></a></div></template></div></div></div><div id="layout" class="layout-g"><div class="layout-l"><div class="content_container"><div class="post"><h1 class="post-title">函数之原型与原型链</h1><div class="post-meta"><a href="/2020/06/21/%E5%87%BD%E6%95%B0%E4%B9%8B%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE/#comments" class="comment-count"></a><p><span class="date">Jun 21, 2020</span><span><i id="busuanzi_container_page_pv"><i id="busuanzi_value_page_pv"></i><i>点击</i></i></span></p></div><div class="post-content"><blockquote>
+</blockquote>
+<h1 id="函数深入之原型与原型链"><a href="#函数深入之原型与原型链" class="headerlink" title="函数深入之原型与原型链"></a>函数深入之原型与原型链</h1><h3 id="1-原型"><a href="#1-原型" class="headerlink" title="1.原型"></a>1.原型</h3><ul>
+<li>name ?  -&gt; prototype 原型对象<ul>
+<li>默认指向一个Object对象 ,里面没有我们自己定义的对象 即”空”</li>
+<li>原型对象中有一个属性Constructor<ul>
+<li>Constructor指回构造函数本身</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>what?   每个构造函数中均存在的一个对象,prototype属性<ul>
+<li>这个属性是一个指针，指向一个对象， </li>
+</ul>
+</li>
+<li>why?  <strong>共享方法给所有的实例对象</strong><ul>
+<li>why?  进行功能封装后,提高代码复用,便于阅读</li>
+<li>how? 实例对象会<strong>自动</strong>拥有原型中的属性和方法<ul>
+<li>why? how?</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>how ?<ul>
+<li><strong>构造函数.prototype.方法名 = 数据</strong></li>
+<li>说明: 属性和方法均可以添加,但是通常多添加方法</li>
+</ul>
+</li>
+<li>注意点<ul>
+<li>既然可以同过对象实例访问原型属性 . <strong>那能重写吗?</strong><ul>
+<li>不能通过对象实例重写原型中的值</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">function Person()&#123; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">Person.prototype.name &#x3D; &quot;Nicholas&quot;; </span><br><span class="line">Person.prototype.age &#x3D; 29; </span><br><span class="line">Person.prototype.job &#x3D; &quot;Software Engineer&quot;; </span><br><span class="line">Person.prototype.sayName &#x3D; function()&#123; </span><br><span class="line"> alert(this.name); </span><br><span class="line">&#125;; </span><br><span class="line"></span><br><span class="line">var person1 &#x3D; new Person();</span><br><span class="line">var person2 &#x3D; new Person(); </span><br><span class="line">person1.name &#x3D; &quot;Greg&quot;; </span><br><span class="line">alert(person1.name); &#x2F;&#x2F;&quot;Greg&quot;——来自实例</span><br><span class="line">alert(person2.name); &#x2F;&#x2F;&quot;Nicholas&quot;——来自原型</span><br><span class="line">delete person1.name; </span><br><span class="line">alert(person1.name); &#x2F;&#x2F;&quot;Nicholas&quot;——来自原型</span><br><span class="line"></span><br><span class="line">* 显然, 不可以同过 person1 改写 原型中的name值,只能给实例自己增删属性</span><br></pre></td></tr></table></figure>
+
+<p>图示: </p>
+<p><img src="https://img-blog.csdnimg.cn/20200622094908782.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0JhaXFpbmdydQ==,size_16,color_FFFFFF,t_70#pic_center" alt></p>
+<ul>
+<li>如何检测我的属性是在原型还是在实例?<ul>
+<li>hasOwnProperty()方法    <ul>
+<li>从哪里来?   继承Object</li>
+<li>给定属性存在于对象实例中时，返回 true    </li>
+<li>语法 : eg:<strong>alert(person1.hasOwnProperty(“name”)); //true</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>in操作符的区别<ul>
+<li>通过对象能够访问给定属性时返回 true</li>
+<li>无论该属性存在于实例中还是原型中</li>
+<li><strong>思考: for- in循环</strong><ul>
+<li>返回的是所有能够通过对象访问的、可枚举的（enumerated）属性，既包括存在于实例中的属性，也包括存在于原型中的属性。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>如何得到所有实例属性，无论它是否可枚举?<ul>
+<li>Object.getOwnPropertyNames(obj)</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>无论什么时候，只要创建了一个新函数，就会根据一组特定的规则为该函数创建一个 prototype 属性，这个属性指向函数的原型对象。</p>
+<p>在默认情况下，所有原型对象都会自动获得一个 constructor （构造函数）属性，这个属性包含一个指向 prototype 属性所在函数的指针。</p>
+<p>constructor 属性是不可枚举的哦</p>
+<p>创建了自定义的构造函数之后，其原型对象默认只会取得 constructor 属性；至于其他方法，则都是从 Object 继承而来的。</p>
+</blockquote>
+<h3 id="2-显示原型与隐式原型"><a href="#2-显示原型与隐式原型" class="headerlink" title="2.显示原型与隐式原型"></a>2.显示原型与隐式原型</h3><ul>
+<li>what?<ul>
+<li>每个<strong>函数</strong>function都有一个prototype，即<strong>显式原型</strong>(属性)<ul>
+<li>用来共享方法的</li>
+</ul>
+</li>
+<li>每个<strong>实例对象</strong>都有一个-<strong>proto</strong>，可称为<strong>隐式原型</strong>(属性)<ul>
+<li>为对象属性的查找机制提供方向</li>
+<li>非标值</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>relation？<ul>
+<li><strong>对象的隐式原型的值 = 对应构造函数的显式原型的值</strong></li>
+</ul>
+</li>
+<li>when ？<ul>
+<li><strong>prototype在函数创建时产生并自动添加</strong><ul>
+<li>默认值为一个Object对象</li>
+<li><strong>函数对象</strong>何时创建？  <strong>定义时创建</strong></li>
+<li>直接操作</li>
+</ul>
+</li>
+<li>__proto__在创建实例对象时自动添加<ul>
+<li>默认值为构造函数的prototype属性</li>
+<li>不推荐直接操作</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>怎么实现 实例对象.proto = 构造函数.prototype？<ul>
+<li><strong>实例对象创建时内部执行赋值</strong> ：实例对象.<strong>proto</strong> = 构造函数.prototype</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type&#x3D;&quot;text&#x2F;javascript&quot;&gt;</span><br><span class="line">  &#x2F;&#x2F;定义构造函数</span><br><span class="line">  function Fn() &#123;   &#x2F;&#x2F; 内部语句: this.prototype &#x3D; &#123;&#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">  console.log(Fn.prototype) </span><br><span class="line"></span><br><span class="line">  var fn &#x3D; new Fn()  &#x2F;&#x2F; 内部语句: 实例对象.__proto__ &#x3D; 构造函数.prototype</span><br><span class="line">  console.log(fn.__proto__)</span><br><span class="line">  </span><br><span class="line">  console.log(Fn.prototype&#x3D;&#x3D;&#x3D;fn.__proto__) &#x2F;&#x2F; true</span><br><span class="line">  </span><br><span class="line">  &#x2F;&#x2F;给原型添加方法</span><br><span class="line">  Fn.prototype.test &#x3D; function () &#123;</span><br><span class="line">    console.log(&#39;test()&#39;)</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  &#x2F;&#x2F;通过实例调用原型的方法</span><br><span class="line">  fn.test()</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>图解 </p>
+<p><img src="https://img-blog.csdnimg.cn/20200621231056196.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0JhaXFpbmdydQ==,size_16,color_FFFFFF,t_70#pic_center" alt></p>
+<p>查找对象属性的流程</p>
+<p><img src="https://img-blog.csdnimg.cn/20200622094918625.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0JhaXFpbmdydQ==,size_16,color_FFFFFF,t_70#pic_center" alt></p>
+<h3 id="3-原型链-其实是隐式原型链"><a href="#3-原型链-其实是隐式原型链" class="headerlink" title="3.原型链(其实是隐式原型链)"></a>3.原型链(其实是隐式原型链)</h3><ul>
+<li>what? <ul>
+<li>实现继承的主要方法</li>
+<li>基本思想: 利用原型,使一个引用类型继承另一个引用类型的属性和方法</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">function Fn() &#123;</span><br><span class="line">    this.test1 &#x3D; function () &#123;</span><br><span class="line">        console.log(&#39;test1()&#39;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Fn.prototype.test2 &#x3D; function () &#123;</span><br><span class="line">    console.log(&#39;test2()&#39;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var fn &#x3D; new Fn()</span><br><span class="line"></span><br><span class="line">fn.test1()</span><br><span class="line">fn.test2()</span><br><span class="line">console.log(fn.toString())</span><br><span class="line">fn.test3()</span><br></pre></td></tr></table></figure>
+
+<p>案例原理图解: </p>
+<p><img src="https://img-blog.csdnimg.cn/20200621231144591.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0JhaXFpbmdydQ==,size_16,color_FFFFFF,t_70#pic_center" alt></p>
+<ul>
+<li><p>why? </p>
+<ul>
+<li>查找对象的属性(方法)</li>
+<li>查找对象看的是作用域链</li>
+</ul>
+</li>
+<li><p>way?</p>
+<ul>
+<li>先在自身属性中查找，找到返回</li>
+<li>如果没有, 再沿着<strong>proto</strong>这条链向上查找, 找到返回</li>
+<li>如果最终没找到, 返回undefined</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>how?<ul>
+<li>读取对象的属性值时: 会自动到原型链中查找</li>
+<li>设置对象的属性值时: 不会查找原型链, 如果当前对象中没有此属性, 直接添加此属性并设置其值</li>
+<li>方法一般定义在原型中, 属性一般通过构造函数定义在对象本身上</li>
+</ul>
+</li>
+</ul>
+<p>原型链完整版图理解( 构造函数/原型/实例对象的关系)</p>
+<p><img src="https://img-blog.csdnimg.cn/20200622105558229.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0JhaXFpbmdydQ==,size_16,color_FFFFFF,t_70#pic_center" alt></p>
+<blockquote>
+<p>理解: </p>
+<ol>
+<li><p>函数的显示原型默认是指向 <strong>未自定义属性的Object实例对象</strong>Object对象例外,</p>
+<ul>
+<li>console.log(Object.prototype instanceof Object) // false</li>
+<li>Object.prototype 指向 null</li>
+</ul>
+</li>
+<li><p>所有函数均是 Function 的实例</p>
+<ul>
+<li><p>console.log(Function._<em>proto_</em>===Function.prototype)  //true</p>
+</li>
+<li><p><strong>所有函数均存在两个prototype&amp;__proto__两个属性</strong></p>
+</li>
+<li><p><strong>Function本身也是自己的实例</strong></p>
+</li>
+<li><p><strong>所有函数的__proto__属性是一样的,因为函数都是 new Function创建的</strong></p>
+<ul>
+<li>Function = new Function</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Object的原型对象是语法原型链的尽头</p>
+<ul>
+<li>console.log(Object.prototype.<strong>proto</strong>) // null</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type&#x3D;&quot;text&#x2F;javascript&quot;&gt;</span><br><span class="line">  function Fn() &#123;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">  Fn.prototype.a &#x3D; &#39;xxx&#39;</span><br><span class="line">  var fn1 &#x3D; new Fn()</span><br><span class="line">  console.log(fn1.a, fn1)</span><br><span class="line"></span><br><span class="line">  var fn2 &#x3D; new Fn()</span><br><span class="line">  fn2.a &#x3D; &#39;yyy&#39;</span><br><span class="line">  console.log(fn1.a, fn2.a, fn2)</span><br><span class="line"></span><br><span class="line">  function Person(name, age) &#123;</span><br><span class="line">    this.name &#x3D; name</span><br><span class="line">    this.age &#x3D; age</span><br><span class="line">  &#125;</span><br><span class="line">  Person.prototype.setName &#x3D; function (name) &#123;</span><br><span class="line">    this.name &#x3D; name</span><br><span class="line">  &#125;</span><br><span class="line">  var p1 &#x3D; new Person(&#39;Tom&#39;, 12)</span><br><span class="line">  p1.setName(&#39;Bob&#39;)</span><br><span class="line">  console.log(p1)</span><br><span class="line"></span><br><span class="line">  var p2 &#x3D; new Person(&#39;Jack&#39;, 12)</span><br><span class="line">  p2.setName(&#39;Cat&#39;)</span><br><span class="line">  console.log(p2)</span><br><span class="line">  console.log(p1.__proto__&#x3D;&#x3D;&#x3D;p2.__proto__) &#x2F;&#x2F; true</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>原型继承<ul>
+<li>通过原型链</li>
+<li>构造函数的实例对象自动拥有构造函数原型对象的属性(方法)</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-instanceof"><a href="#4-instanceof" class="headerlink" title="4.instanceof"></a>4.instanceof</h3><ul>
+<li>what?<ul>
+<li><code>instanceof</code> 运算符用来检测 <code>constructor.prototype</code>是否存在于参数 <code>object</code> 的原型链上</li>
+</ul>
+</li>
+<li>how?<ul>
+<li>语法:　<strong>a instanceof A</strong></li>
+<li>如果 constructor A 的显式原型对象在 object a的原型链上, 返回 true, 否则返回false</li>
+</ul>
+</li>
+</ul>
+<p>案例1: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function Foo() &#123;  &#125;</span><br><span class="line">var f1 &#x3D; new Foo()</span><br><span class="line">console.log(f1 instanceof Foo) &#x2F;&#x2F; true</span><br><span class="line">console.log(f1 instanceof Object) &#x2F;&#x2F; true</span><br></pre></td></tr></table></figure>
+
+<p> 图解: </p>
+<p><img src="https://img-blog.csdnimg.cn/20200622115131279.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0JhaXFpbmdydQ==,size_16,color_FFFFFF,t_70#pic_center" alt></p>
+<p>案例2: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">console.log(Object instanceof Function) &#x2F;&#x2F; true</span><br><span class="line">console.log(Object instanceof Object) &#x2F;&#x2F; true</span><br><span class="line">console.log(Function instanceof Function) &#x2F;&#x2F; true</span><br><span class="line">console.log(Function instanceof Object) &#x2F;&#x2F; true</span><br><span class="line"></span><br><span class="line">function Foo() &#123;&#125;</span><br><span class="line">console.log(Object instanceof  Foo) &#x2F;&#x2F; false</span><br></pre></td></tr></table></figure>
+
+<p>图解: </p>
+<p><img src="https://img-blog.csdnimg.cn/20200622122324444.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0JhaXFpbmdydQ==,size_16,color_FFFFFF,t_70#pic_center" alt></p>
+<h3 id="5-面试题目"><a href="#5-面试题目" class="headerlink" title="5.面试题目"></a>5.面试题目</h3><p> 例题1: </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function A() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">A.prototype.n &#x3D; 1</span><br><span class="line">var b &#x3D; new A()</span><br><span class="line">A.prototype &#x3D; &#123;</span><br><span class="line">    n: 2,</span><br><span class="line">    m: 3</span><br><span class="line">&#125;</span><br><span class="line">var c &#x3D; new A()</span><br><span class="line">console.log(b.n, b.m, c.n, c.m)  &#x2F;&#x2F;1 undefined 2 3</span><br></pre></td></tr></table></figure>
+
+<p>例题2 :</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">function F() &#123;&#125;</span><br><span class="line">Object.prototype.a &#x3D; function () &#123;</span><br><span class="line">    console.log(&#39;a()&#39;)</span><br><span class="line">&#125;</span><br><span class="line">Function.prototype.b &#x3D; function () &#123;</span><br><span class="line">    console.log(&#39;b()&#39;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var f &#x3D; new F()</span><br><span class="line">f.a() &#x2F;&#x2F;a()</span><br><span class="line">f.b() &#x2F;&#x2F;b()</span><br><span class="line">F.a() &#x2F;&#x2F;a()</span><br><span class="line">F.b() &#x2F;&#x2F;b()</span><br><span class="line">console.log(f) &#x2F;&#x2F;F</span><br><span class="line">console.log(Object.prototype) &#x2F;&#x2F;Object</span><br><span class="line">console.log(Function.prototype) &#x2F;&#x2F;ƒ () &#123; [native code] &#125;</span><br></pre></td></tr></table></figure>
+
+</div><div class="post-copyright"><blockquote><p>原文作者: CodeHare</p><p>原文链接: <a href="https://baiqingru.github.io/2020/06/21/函数之原型与原型链/">https://baiqingru.github.io/2020/06/21/函数之原型与原型链/</a></p><p>版权声明: 转载请注明出处(必须保留作者署名及链接)</p></blockquote></div><div class="tags"><a href="/tags/JavaScript/">JavaScript</a></div><div class="post-share"><div class="social-share"><span>分享到:</span></div></div><div class="post-nav"><a href="/2020/06/22/%E5%87%BD%E6%95%B0%E4%B9%8B%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%E5%92%8C%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87%E6%A0%88/" class="pre">函数之执行上下文和执行上下文栈</a><a href="/2020/06/20/js%E5%9F%BA%E7%A1%80%E6%80%BB%E7%BB%93%E6%B7%B1%E5%85%A5/" class="next">基础总结深入JavaScript</a></div><div id="comments"></div></div></div></div><div class="layout-r"><div id="sidebar"><div class="search-pla"></div><div id="toc" class="widget"><div class="widget-title"><i class="fa fa-fei">文章目录</i></div><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#函数深入之原型与原型链"><span class="toc-text">函数深入之原型与原型链</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-原型"><span class="toc-text">1.原型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-显示原型与隐式原型"><span class="toc-text">2.显示原型与隐式原型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-原型链-其实是隐式原型链"><span class="toc-text">3.原型链(其实是隐式原型链)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-instanceof"><span class="toc-text">4.instanceof</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-面试题目"><span class="toc-text">5.面试题目</span></a></li></ol></li></ol></li></ol></div><div class="widget"><div class="widget-title"><i class="fa fa-xie"> 最新文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2020/08/25/Promise%E5%8E%9F%E7%90%86/">Promise原理</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/10/Prettier/">Prettier</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/10/Fastclick%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/">Fastclick的简单使用</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/04/Eslint%E9%85%8D%E7%BD%AE/">Eslint配置</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/07/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E9%93%BE%E8%A1%A8/">数据结构与算法之链表</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/07/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E9%98%9F%E5%88%97/">数据结构与算法之队列</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/07/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E6%A0%88/">数据结构与算法之栈</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/07/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B9%8B%E6%95%B0%E7%BB%84/">数据结构与算法之数组</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/06/26/%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/">线程机制与事件机制</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/06/25/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A6%82%E8%BF%B0%E5%8F%8A%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E5%AD%A6%E4%B9%A0/">数据库概述及环境搭建学习</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-biao"> 标签</i></div><div class="tagcloud"><a href="/tags/node-js/" style="font-size: 15px;">node.js</a> <a href="/tags/JavaScript/" style="font-size: 15px;">JavaScript</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3/" style="font-size: 15px;">数据库简单了解</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 15px;">数据结构与算法</a> <a href="/tags/%E5%85%B6%E4%BD%99/" style="font-size: 15px;">其余</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E7%AE%80%E5%8D%95%E4%BA%86%E8%A7%A3/" style="font-size: 15px;">数据库的简单了解</a> <a href="/tags/%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" style="font-size: 15px;">配置文件</a> <a href="/tags/ES6/" style="font-size: 15px;">ES6</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-archive"> 归档</i></div><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a><span class="archive-list-count">23</span></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-you"> 友情链接</i></div><ul></ul><a href="http://www.example1.com/" title="site-name1" target="_blank">site-name1</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div></div><a id="totop" href="#top"></a><div id="footer"><div class="footer-info"><p><a href="/baidusitemap.xml">网站地图</a> |  <a href="/atom.xml">订阅本站</a> |  <a href="/about/">联系博主</a></p><p>本站总访问量：<i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>次，本站总访客数:<i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>人</p><p><span> Copyright &copy;<a href="/." rel="nofollow">CodeHare.</a></span><span> Theme by<a rel="nofollow" target="_blank" href="https://github.com/chaooo/hexo-theme-BlueLake"> BlueLake.</a></span><span> Count by<a href="http://busuanzi.ibruce.info/" target="_blank" rel="noopener"> busuanzi.</a></span><span> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a></span></p></div></div></div><script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><script type="text/javascript" src="/js/search.json.js?v=2.0.5"></script><div id="fullscreen-img" class="hide"><span class="close"></span></div><script type="text/javascript" src="/js/imgview.js?v=2.0.5" async></script><script type="text/javascript" src="/js/toctotop.js?v=2.0.5" async></script><link rel="stylesheet" type="text/css" href="/share/css/share.css"><script type="text/javascript" src="/share/js/social-share.js" charset="utf-8"></script><script type="text/javascript" src="/share/js/qrcode.js" charset="utf-8"></script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>
